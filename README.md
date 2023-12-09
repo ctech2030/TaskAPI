@@ -101,29 +101,30 @@ Response Structure: json
 ```
 
 2. Database Design:
-
+```
 Task Table:
 Columns: ID, Title, Description, Status, Priority, DueDate, ProjectId
 Foreign Key: ProjectId references Project Table
 
 Project Table:
 Columns: ID, Name, Description
-
+```
 3. Business Logic:
 Tasks can only be deleted or updated if they are in a pending or in-progress state.
 Provide functionality to update task status.
 
 4. Java Project Structure:
+```
 src/main/java/your/package/TaskController.java: REST API controllers.
 src/main/java/your/package/TaskService.java: Business logic.
 src/main/java/your/package/TaskRepository.java: Interface for database operations.
 src/main/java/your/package/model/Task.java: Entity class for tasks.
 src/main/java/your/package/model/Project.java: Entity class for projects.
 src/test/java/your/package/TaskControllerTest.java: JUnit tests.
-
-5. Testing:
+```
+6. Testing:
 Write JUnit tests covering all functionalities.
 
-6. Code Quality and Documentation:
+7. Code Quality and Documentation:
 Use clean architecture principles.
 Document API endpoints and provide clear code comments.
