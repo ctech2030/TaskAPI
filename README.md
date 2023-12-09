@@ -3,6 +3,7 @@ with a project and has attributes like title, description, status, priority, and
 
 Below is an outline of approach this task
 
+```
 1. REST API Endpoints:
 Create a new task:
 Route: POST /tasks
@@ -97,42 +98,7 @@ Response Structure: json
   "pageSize": 10
 }
 
-Retrieve overdue tasks:
-Route: GET /tasks/overdue
-Method: GET
-Response Structure: json
-
-{
-  "tasks": [
-    {
-      "id": 1,
-      "title": "Overdue Task Title",
-      "description": "Overdue Task Description",
-      "status": "pending",
-      "priority": "high",
-      "dueDate": "2023-01-01",
-      "projectId": 1
-    },
-    // ... other overdue tasks
-  ]
-}
-
-Batch update status of multiple tasks:
-Route: PUT /tasks/batch-update
-Method: PUT
-Request Structure: json
-
-{
-  "taskIds": [1, 2, 3],
-  "status": "completed"
-}
-
-Response Structure:json
-
-{
-  "message": "Batch update successful."
-}
-
+```
 
 2. Database Design:
 
