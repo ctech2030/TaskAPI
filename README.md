@@ -11,13 +11,16 @@ Method: POST
 Request Structure: json
 
 {
-  "title": "Task Title",
-  "description": "Task Description",
-  "status": "pending",
-  "priority": "high",
+  "title": "Complete Project Report",
+  "description": "Write and submit the project report by the deadline.",
+  "status": "In Progress",
+  "priority": "High",
   "dueDate": "2023-12-31",
-  "projectId": 1
+  "project": {
+    "id": 1
+     }
 }
+
 
 Response Structure: json
 
