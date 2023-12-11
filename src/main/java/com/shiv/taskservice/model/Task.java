@@ -30,6 +30,20 @@ public class Task implements Serializable {
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
+	public Task() {
+	}
+
+	public Task(long l, String title, String description, String status, String priority, Date dueDate,
+			Project project) {
+		this.id = l;
+		this.title = title;
+		this.description = description;
+		this.status = status;
+		this.priority = priority;
+		this.dueDate = dueDate;
+		this.project = project;
+	}
+	
 	public Long getId() {
 		return id;
 	}
