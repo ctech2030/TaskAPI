@@ -21,13 +21,7 @@ public class TaskController {
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
-    }
-
-   /* @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
-    }*/
-    
+    }   
     
     @GetMapping()
     public TaskListResponse getTasks(
