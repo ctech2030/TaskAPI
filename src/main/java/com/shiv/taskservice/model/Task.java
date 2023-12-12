@@ -1,34 +1,35 @@
 package com.shiv.taskservice.model;
 
-
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-
 
 @Entity
 @Table(name = "task")
 public class Task implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String title;
-    private String description;
-    private String status;
-    private String priority;
-    private Date dueDate;
+	private String title;
+	private String description;
+	private String status;
+	private String priority;
+	private Date dueDate;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "project_id", nullable = false)
+	private Project project;
 
 	public Task() {
 	}
@@ -43,7 +44,7 @@ public class Task implements Serializable {
 		this.dueDate = dueDate;
 		this.project = project;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -100,5 +101,4 @@ public class Task implements Serializable {
 		this.project = project;
 	}
 
-    
 }
