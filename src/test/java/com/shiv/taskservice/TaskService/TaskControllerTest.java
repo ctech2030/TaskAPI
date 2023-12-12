@@ -1,13 +1,22 @@
 package com.shiv.taskservice.TaskService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -16,10 +25,6 @@ import com.shiv.taskservice.controller.TaskController;
 import com.shiv.taskservice.model.Task;
 import com.shiv.taskservice.model.TaskListResponse;
 import com.shiv.taskservice.service.TaskService;
-import java.util.List;
-import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class TaskControllerTest {
@@ -136,4 +141,27 @@ class TaskControllerTest {
 		verify(taskService, times(1)).deleteTask(taskId);
 		assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
 	}
+
+	@Test
+	void getOverdueTasks() {
+		// Mock data
+		// Mocking the TaskService behavior
+		List<Task> mockedTasks = List.of(new Task(1L, "Overdue Task 1", "Description 1", "pending", "high", null, null),
+				new Task(2L, "Overdue Task 2", "Description 2", "in progress", "medium", null, null));
+
+		// Mocking behavior of the taskRepository
+		when(taskService.getOverdueTasks()).thenReturn(mockedTasks);
+
+		// Call the actual method you want to test
+		List<Task> result = taskController.getOverdueTasks();
+
+		// Verify the result
+		assertEquals(2, result.size());
+		assertEquals("Overdue Task 1", result.get(0).getTitle());
+		assertEquals("Overdue Task 2", result.get(1).getTitle());
+
+		// Verify that the service method was called
+		verify(taskService, times(1)).getOverdueTasks();
+	}
+
 }

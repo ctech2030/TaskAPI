@@ -1,5 +1,13 @@
 package com.shiv.taskservice.TaskService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -8,11 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.shiv.taskservice.model.Task;
 import com.shiv.taskservice.repository.TaskRepository;
 import com.shiv.taskservice.service.TaskService;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class TaskServiceTest {
@@ -86,4 +89,25 @@ public class TaskServiceTest {
 		taskService.deleteTask(taskId);
 		Mockito.verify(taskRepository, Mockito.times(1)).deleteById(taskId);
 	}
+
+	@Test
+	void getOverdueTasks() {
+		// Mock data
+		// Mocking the TaskService behavior
+		List<Task> mockedTasks = List.of(new Task(1L, "Overdue Task 1", "Description 1", "pending", "high", null, null),
+				new Task(2L, "Overdue Task 2", "Description 2", "in progress", "medium", null, null));
+
+		// Mocking behavior of the taskRepository
+		when(taskRepository.findOverdueTasks(any(LocalDate.class))).thenReturn(mockedTasks);
+
+		// Call the actual method you want to test
+		List<Task> result = taskService.getOverdueTasks();
+
+		// Verify the result
+		assertEquals(2, result.size());
+		assertEquals("Overdue Task 1", result.get(0).getTitle());
+		assertEquals("Overdue Task 2", result.get(1).getTitle());
+
+	}
+
 }
