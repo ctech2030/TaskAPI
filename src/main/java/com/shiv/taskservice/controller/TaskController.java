@@ -3,8 +3,6 @@ package com.shiv.taskservice.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -26,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shiv.taskservice.model.Task;
 import com.shiv.taskservice.model.TaskListResponse;
 import com.shiv.taskservice.service.TaskService;
+
+import jakarta.transaction.Transactional;
 
 /**
  * 
@@ -68,7 +68,6 @@ public class TaskController {
 	 * @return
 	 */
 	@GetMapping("/{taskId}")
-	@Cacheable(TaskCacheConfig.TASK_CACHE)
 	public ResponseEntity<Task> getTaskById(@PathVariable Long taskId) {
 		Optional<Task> task = taskService.getTaskById(taskId);
 		return task.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -90,7 +89,6 @@ public class TaskController {
 	 * @return
 	 */
 	@PutMapping("/{taskId}")
-	@CacheEvict(TaskCacheConfig.TASK_CACHE)
 	public ResponseEntity<Task> updateTask(@PathVariable Long taskId, @RequestBody Task updatedTask) {
 		Task task = taskService.updateTask(taskId, updatedTask);
 		if (task != null) {
@@ -108,7 +106,6 @@ public class TaskController {
 	 * @return
 	 */
 	@DeleteMapping("/{taskId}")
-	@Cacheable(TaskCacheConfig.TASK_CACHE)
 	public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
 		taskService.deleteTask(taskId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
