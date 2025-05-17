@@ -26,6 +26,7 @@ import com.shiv.taskservice.model.TaskListResponse;
 import com.shiv.taskservice.service.TaskService;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 /**
  * 
@@ -75,7 +76,7 @@ public class TaskController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Task> createTask(@RequestBody Task task) {
+	public ResponseEntity<Task> createTask( @Valid @RequestBody Task task) {
 		Task createdTask = taskService.createTask(task);
 		return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
 	}

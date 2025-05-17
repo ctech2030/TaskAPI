@@ -9,6 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -19,10 +22,14 @@ public class Task implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@NotNull(message = "Title cannot be null")
+	@Size(max = 30, message = "Title should not exceed 30 characters")
 	private String title;
+	
 	private String description;
 	private String status;
+	@NotNull(message = "Priority cannot be null")
 	private String priority;
 	private Date dueDate;
 
